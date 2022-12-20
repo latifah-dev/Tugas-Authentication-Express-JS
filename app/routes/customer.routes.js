@@ -17,17 +17,17 @@ module.exports = function (app) {
     controller.createCustomer
   );
   app.get(
-    "/api/customer/detail/customer:id",
+    "/api/customer/detail/:id",
     [authJwt.verifyToken, authJwt.isModeratorOrAdmin],
     controller.detailCustomer
   );
   app.put(
-    "/api/customer/update/customer:id",
+    "/api/customer/update/:id",
     [authJwt.verifyToken, authJwt.isModeratorOrAdmin],
     controller.updateCustomer
   );
   app.delete(
-    "/api/customer/delete/customer:id",
+    "/api/customer/delete/:id",
     [authJwt.verifyToken, authJwt.isModeratorOrAdmin],
     controller.deleteCustomer
   );
