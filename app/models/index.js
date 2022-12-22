@@ -19,6 +19,8 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.customer = require("../models/customer.model.js")(sequelize, Sequelize);
+db.order = require("../models/order.model.js")(sequelize, Sequelize);
+db.product = require("../models/product.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -29,6 +31,16 @@ db.user.belongsToMany(db.role, {
   through: "user_roles",
   foreignKey: "userId",
   otherKey: "roleId",
+});
+db.customer.belongsToMany(db.product, {
+  through: "orders",
+  foreignKey: "customerId",
+  otherKey: "productId",
+});
+db.product.belongsToMany(db.customer, {
+  through: "orders",
+  foreignKey: "productId",
+  otherKey: "customerId",
 });
 db.ROLES = ["user", "admin", "moderator"];
 module.exports = db;
